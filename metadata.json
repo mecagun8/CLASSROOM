@@ -1,0 +1,5 @@
+{
+  "name": "EduSpace Master - 13개 교육장 통합 관리 대시보드",
+  "description": "13개의 교육 임대 공간을 한눈에 파악하고 예약, 매출, 유지보수 상태를 관리하는 전문 대시보드입니다. Gemini AI를 통해 운영 인사이트를 제공합니다.",
+  "requestFramePermissions": []
+}
