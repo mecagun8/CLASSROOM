@@ -20,6 +20,7 @@ export const MOCK_CENTERS: TrainingCenter[] = Array.from({ length: 13 }, (_, i) 
     lastMaintenance: '2024-03-01',
     nextMaintenance: '2024-06-15',
     occupancyRate: 0,
+    monthlyRent: 1500000 + (i * 100000), // 샘플 임대료 데이터 추가
     monthlyStatus: status,
     monthlyTenants: tenants,
   };

@@ -154,9 +154,12 @@ const App: React.FC = () => {
       <main className={`flex-1 transition-all duration-500 ${isSidebarOpen ? 'ml-[280px]' : 'ml-[100px]'} p-12 bg-[#f8f9fb]`}>
         <header className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-16">
           <div className="animate-in slide-in-from-left duration-700">
-            <h1 className="text-4xl font-black text-slate-900 tracking-tight mb-2">
-              {viewMode === 'dashboard' ? 'Overview Status' : 'Planning Management'}
-            </h1>
+            <div className="flex items-center gap-3 mb-1">
+              <span className="bg-slate-900 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-widest">2026 Fiscal Year</span>
+              <h1 className="text-4xl font-black text-slate-900 tracking-tight">
+                {viewMode === 'dashboard' ? 'Overview Status' : 'Planning Management'}
+              </h1>
+            </div>
             <div className="flex items-center gap-2 text-[11px] font-bold text-slate-400 uppercase tracking-widest">
               <span>Management</span>
               <ChevronRight size={12} />

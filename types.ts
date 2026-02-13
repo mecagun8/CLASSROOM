@@ -15,6 +15,7 @@ export interface TrainingCenter {
   lastMaintenance: string;
   nextMaintenance: string;
   occupancyRate: number;
+  monthlyRent: number; // 월 임대료 속성 추가
   // Status for each month (1-12)
   monthlyStatus: CenterStatus[];
   // Tenant for each month (1-12)
