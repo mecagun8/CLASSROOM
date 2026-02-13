@@ -4,21 +4,13 @@ import {
   LayoutDashboard, 
   Home, 
   Calendar, 
-  Heart, 
-  Wrench, 
   TrendingUp, 
   Users, 
   AlertCircle,
-  Sparkles,
   ChevronRight,
   Menu,
   X,
   RefreshCw,
-  BarChart2,
-  PieChart,
-  MessageSquare,
-  Globe,
-  Wallet
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { MOCK_CENTERS, USAGE_DATA, MONTHS } from './constants';
@@ -26,15 +18,12 @@ import { TrainingCenter, CenterStatus } from './types';
 import StatCard from './components/StatCard';
 import CenterCard from './components/CenterCard';
 import TimelineView from './components/TimelineView';
-import { getGeminiInsights } from './services/geminiService';
 
 const App: React.FC = () => {
   const [centers, setCenters] = useState<TrainingCenter[]>(MOCK_CENTERS);
   const [selectedCenter, setSelectedCenter] = useState<TrainingCenter | null>(null);
   const [viewMode, setViewMode] = useState<'dashboard' | 'timeline'>('dashboard');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [aiInsight, setAiInsight] = useState<string | null>(null);
-  const [isLoadingInsight, setIsLoadingInsight] = useState(false);
 
   // Derived Stats
   const stats = {
@@ -42,13 +31,6 @@ const App: React.FC = () => {
     avgOccupancy: Math.round(centers.reduce((sum, c) => sum + c.occupancyRate, 0) / centers.length) || 0,
     maintenanceCount: centers.filter(c => c.status === CenterStatus.MAINTENANCE).length,
     availableCount: centers.filter(c => c.status === CenterStatus.AVAILABLE).length
-  };
-
-  const fetchInsights = async () => {
-    setIsLoadingInsight(true);
-    const result = await getGeminiInsights(centers);
-    setAiInsight(result);
-    setIsLoadingInsight(false);
   };
 
   const handleUpdateCenterMeta = (id: string, updates: Partial<TrainingCenter>) => {
@@ -178,12 +160,6 @@ const App: React.FC = () => {
                  +13
                </div>
             </div>
-            <button 
-              onClick={fetchInsights}
-              className="group flex items-center gap-3 bg-white border border-slate-100 px-6 py-4 rounded-2xl text-sm font-bold text-slate-600 hover:shadow-xl hover:-translate-y-1 transition-all"
-            >
-              <Sparkles size={18} className="text-blue-500 group-hover:animate-pulse" /> AI Insight
-            </button>
             <div className="w-14 h-14 bg-gradient-to-br from-pink-500 to-rose-600 rounded-[20px] shadow-lg shadow-pink-100 flex items-center justify-center text-white font-black cursor-pointer hover:scale-110 transition-transform">
               NS
             </div>
@@ -206,35 +182,13 @@ const App: React.FC = () => {
                   <button onClick={() => setViewMode('timeline')} className="text-xs font-black text-blue-500 uppercase tracking-widest hover:underline">Manage Detailed Schedule</button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {centers.slice(0, 6).map(center => (
+                  {centers.map(center => (
                     <CenterCard key={center.id} center={center} onClick={(c) => setSelectedCenter(c)} />
                   ))}
                 </div>
               </div>
 
               <div className="space-y-10">
-                 <div className="bg-[#1e1e2d] rounded-[32px] p-8 shadow-2xl relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-700">
-                      <Sparkles size={120} className="text-blue-400" />
-                    </div>
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="bg-blue-500/20 p-3 rounded-[16px]">
-                        <Sparkles size={20} className="text-blue-400" />
-                      </div>
-                      <h3 className="text-xl font-black text-white tracking-tight">AI Analysis</h3>
-                    </div>
-                    {isLoadingInsight ? (
-                      <div className="flex flex-col items-center py-10 space-y-4">
-                        <RefreshCw className="animate-spin text-blue-400" size={32} />
-                        <span className="text-xs font-bold text-slate-500 uppercase">Analyzing Schedule...</span>
-                      </div>
-                    ) : (
-                      <div className="text-sm text-slate-300 leading-relaxed max-h-[250px] overflow-y-auto custom-scrollbar">
-                        {aiInsight || "인사이트를 받으려면 'AI Insight' 버튼을 클릭하세요."}
-                      </div>
-                    )}
-                 </div>
-
                  <div className="bg-white rounded-[32px] p-8 border border-slate-100 shadow-xl shadow-slate-200/50">
                     <h3 className="text-xl font-black text-slate-900 mb-8 flex justify-between items-center">
                       Monthly Occupancy
