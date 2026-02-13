@@ -122,12 +122,11 @@ const App: React.FC = () => {
           {[
             { id: 'dashboard', icon: <Home size={22} />, label: 'DASHBOARD' },
             { id: 'timeline', icon: <Calendar size={22} />, label: 'PLANNING' },
-            { id: 'finance', icon: <Wallet size={22} />, label: 'FINANCE' },
           ].map((item) => (
             <button 
               key={item.id}
               onClick={() => {
-                if (item.id === 'dashboard' || item.id === 'timeline' || item.id === 'finance') setViewMode(item.id as any);
+                if (item.id === 'dashboard' || item.id === 'timeline') setViewMode(item.id as any);
               }}
               className={`w-full flex items-center gap-5 p-4 rounded-2xl transition-all duration-300 ${
                 (item.id === viewMode) 

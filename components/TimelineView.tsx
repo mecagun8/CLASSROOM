@@ -128,10 +128,13 @@ const TimelineView: React.FC<TimelineViewProps> = ({ centers, onUpdateCenterMeta
     <div className="bg-white rounded-[40px] border border-slate-100 shadow-2xl overflow-hidden relative p-10">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
         <div>
-          <h3 className="text-3xl font-black text-slate-900 tracking-tight">연간 교육 스케줄링</h3>
+          <div className="flex items-center gap-3 mb-1">
+            <span className="bg-blue-600 text-white text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest">2026 Fiscal Year</span>
+            <h3 className="text-3xl font-black text-slate-900 tracking-tight">2026 연간 교육 스케줄링</h3>
+          </div>
           <p className="text-slate-400 font-bold text-sm mt-2 flex items-center gap-2">
             <Clock size={16} className="text-blue-500" /> 
-            교육장 정보를 클릭하여 수정하고, 캘린더를 통해 스케줄을 관리하세요.
+            2026년 전체 교육 일정을 한눈에 관리하세요. (교육장 정보 클릭 시 수정 가능)
           </p>
         </div>
         <div className="flex gap-3">
@@ -148,9 +151,11 @@ const TimelineView: React.FC<TimelineViewProps> = ({ centers, onUpdateCenterMeta
 
       <div className="relative overflow-x-auto pb-10">
         <div className="min-w-[1100px]">
-          <div className="flex ml-[280px] mb-8">
+          {/* Months Header with Year Label */}
+          <div className="flex ml-[280px] mb-8 items-center">
             {MONTHS.map((month) => (
               <div key={month} className="flex-1 text-center">
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block">2026</span>
                 <span className="text-xs font-black text-slate-300 uppercase tracking-[0.2em]">{month}</span>
               </div>
             ))}
@@ -331,7 +336,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ centers, onUpdateCenterMeta
       {/* 스케줄 관리 통합 모달 */}
       {selectedCell && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xl z-[110] flex items-center justify-center p-6">
-          <div className="bg-white rounded-[48px] w-full max-w-lg p-12 relative animate-in fade-in zoom-in duration-300 shadow-2xl border border-white">
+          <div className="bg-white rounded-[48px] w-full max-lg p-12 relative animate-in fade-in zoom-in duration-300 shadow-2xl border border-white">
             <button 
               onClick={() => setSelectedCell(null)}
               className="absolute top-10 right-10 p-4 rounded-full hover:bg-slate-100 transition-colors text-slate-300"
@@ -349,8 +354,8 @@ const TimelineView: React.FC<TimelineViewProps> = ({ centers, onUpdateCenterMeta
               <div className="flex items-center gap-2 bg-slate-50 px-4 py-1.5 rounded-full mt-3">
                 <span className="text-slate-400 font-black uppercase tracking-widest text-[10px]">
                   {selectedCell.block 
-                    ? `${MONTHS[selectedCell.block.start]} ~ ${MONTHS[selectedCell.block.end]} 교육 관리` 
-                    : `${MONTHS[selectedCell.monthIdx]} 교육 신규 등록`
+                    ? `2026년 ${MONTHS[selectedCell.block.start]} ~ ${MONTHS[selectedCell.block.end]} 교육 관리` 
+                    : `2026년 ${MONTHS[selectedCell.monthIdx]} 교육 신규 등록`
                   }
                 </span>
               </div>
